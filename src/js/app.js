@@ -15,6 +15,23 @@ export class Character {
       throw new Error('Тип персонажа задан не верно!');
     }
   }
+
+  levelUp() {
+    if (this.health !== 0) {
+      this.level = this.level + 1;
+      this.attack = Math.round(this.attack * 1.2);
+      this.defence = Math.round(this.defence * 1.2);
+      this.health = 100;
+    } else {
+      throw new Error('Невозможно повысить уровень, персонаж умер!');
+    }   
+  }
+
+  damage(points) {
+    if (this.health >= 0) {
+      this.health = this.health - Math.round(points * (1 - this.defence / 100));
+    }
+  }
 }
 
 export class Bowerman extends Character {
@@ -64,3 +81,11 @@ export class Zombie extends Character {
     this.defence = 10;
   }
 }
+
+// const zombie1 = new Zombie('Zombie', 'Zombie');
+// console.log(zombie1.health);
+// zombie1.damage(20);
+// console.log(zombie1.health);
+// zombie1.health = 0;
+// console.log(zombie1.health);
+// zombie1.levelUp();

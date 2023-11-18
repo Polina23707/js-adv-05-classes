@@ -16,6 +16,42 @@ test('Character type is from the list', () => {
   expect(dragon1).toThrow(new Error('Тип персонажа задан не верно!'));
 });
 
+test('levelUp() to dead character', () => {
+  const zombie1 = new characters.Character('Зомби', 'Zombie');
+  zombie1.health = 0;
+  expect(zombie1.levelUp()).toThrow(new Error('Невозможно повысить уровень, персонаж умер!'));
+});
+
+test('levelUp() to alive character level check', () => {
+  const zombie1 = new characters.Character('Зомби', 'Zombie');
+  zombie1.levelUp();
+  expect(zombie1.level).toBe(2);
+});
+
+test('levelUp() to alive character defence check', () => {
+  const zombie1 = new characters.Character('Зомби', 'Zombie');
+  zombie1.levelUp();
+  expect(zombie1.defence).toBe(12);
+});
+
+test('levelUp() to alive character attack check', () => {
+  const zombie1 = new characters.Character('Зомби', 'Zombie');
+  zombie1.levelUp();
+  expect(zombie1.attack).toBe(48);
+});
+
+test('demage() to alive character', () => {
+  const zombie1 = new characters.Character('Зомби', 'Zombie');
+  zombie1.damage(20);
+  expect(zombie1.health).toBe(82);
+});
+
+test('demage() to dead character', () => {
+  const zombie1 = new characters.Character('Зомби', 'Zombie');
+  zombie1.health = 0;
+  zombie1.damage(20);
+  expect(zombie1.health).toBe(0);
+});
 
 test.each([
   ['Зомби', 'Zombie'],
@@ -63,3 +99,4 @@ test.each([
 (object, attack, defence) => {
   expect(object.defence).toBe(defence);
 })
+
